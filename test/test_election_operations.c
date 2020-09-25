@@ -3,7 +3,7 @@
 
 /* Modify these two lines according to the project */
 #include <election_operations.h>
-#define PROJECT_NAME    "Calculator"
+#define PROJECT_NAME    "Election"
 
 /* Prototypes for all the test functions */
 void test_forvote(void);
