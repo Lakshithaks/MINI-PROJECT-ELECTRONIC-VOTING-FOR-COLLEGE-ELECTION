@@ -1,112 +1,255 @@
 #include <calculator_operations.h>
 
-/* Status of the operation requested */
-#define VALID   (1)
-#define INVALID (0)
 
-/* Calculator operation requested by user*/
-unsigned int calculator_operation = 0;
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 
-/* Operands on which calculation is performed */
-int calculator_operand1 = 0;
-int calculator_operand2 = 0;
-
-/* Valid operations */
-enum operations{ ADD=1, SUBTRACT, MULTIPLY, DIVIDE, EXIT };
-
-/* Display the menu of operations supported */
-void calculator_menu(void);
-/* Verifies the requested operations validity */
-int valid_operation(int operation);
-
-
-/* Start of the application */
-int main(int argc, char *argv[])
+char heading()//HEADING
 {
-    printf("\n****Calculator****\n");
-    while(1)
-    {
-        calculator_menu();
-    }
+    system("cls");
+
+	printf("\n\t\t    VIDYAVARDHAKA COLLEGE OF ENGINEERING\n");
+	printf("------------------------------------------------------------------------------------\n\n");
+	printf("\t\t  WELCOME TO THE VVCE STUDENT PRESIDENT ELECTION\n\n");
+	printf("\t\t\t   **************************\n");
+	printf("\n\n\n");
 }
 
-void calculator_menu(void)
+int main()
 {
-    printf("\nAvailable Operations\n");
-    printf("\n1. Add\n2. Subtract\n3. Multiply\n4. Divide\n5. Exit");
-    printf("\n\tEnter your choice\n");
-   
-     __fpurge(stdin);
-    scanf("%d", &calculator_operation);
+	//VARIABLE DECLARATION
+	FILE *fp2,*fp1,*fp3;
+	int num=0,year,ch,n=0,res,a[50],i,go,m=1,no,len, j;
+	char name1[80],branch[20],cand[20],name2[80],voter[80],che[20],c;
 
-    if(EXIT == calculator_operation)
-    {
-        printf("\nThank you. Exiting the Application\n");
-        exit(0);
-    }
+	system("cls");
 
-    if(INVALID != valid_operation(calculator_operation))
+	heading();
+	fflush(stdin);
+	//USER ENTRY
+	printf("\n\n\t\t\t  ENTER NAME:");
+    gets(name1);
+    //Removing spaces in name
+	len=strlen(name1);
+	for(i=0; i<len; i++)
+	{
+		if(name1[i]==' ')
+		{
+			for(j=i; j<len; j++)
+			{
+				name1[j]=name1[j+1];
+			}
+		len--;
+		}
+	}
+
+    printf("\t\t\t  ENTER YEAR:");
+	scanf("%d",&year);
+	printf("\t\t\t  ENTER BRANCH:");
+	scanf("%s",branch);
+
+	fp2 = fopen("voters.txt","r");
+	while(fscanf(fp2,"%s",name2)!= EOF)
     {
-        printf("\n\tEnter your Numbers with space between them\n");
-        __fpurge(stdin);
-        scanf("%d %d", &calculator_operand1, &calculator_operand2);
-    }
-    else
-    {
-        printf("\n\t---Wrong choice---\nEnter to continue\n");
-        __fpurge(stdin);
-        getchar();
-        return;
-        
-    }
-    switch(calculator_operation)
-    {
-        case ADD:
-            printf("\n\t%d + %d = %d\nEnter to continue", 
-            calculator_operand1, 
-            calculator_operand2,
-            add(calculator_operand1, calculator_operand2));
-            
-            __fpurge(stdin);
-            getchar();
-            break;
-        case SUBTRACT:
-            printf("\n\t%d - %d = %d\nEnter to continue", 
-            calculator_operand1, 
-            calculator_operand2,
-            subtract(calculator_operand1, calculator_operand2));
-            
-            __fpurge(stdin);
-            getchar();
-            break;
-        case MULTIPLY:
-            printf("\n\t%d * %d = %d\nEnter to continue", 
-            calculator_operand1, 
-            calculator_operand2,
-            multiply(calculator_operand1, calculator_operand2));
-            
-            __fpurge(stdin);
-            getchar();
-            break;
-        case DIVIDE:
-            printf("\n\t%d / %d = %d\nEnter to continue", 
-            calculator_operand1, 
-            calculator_operand2,
-            divide(calculator_operand1, calculator_operand2));
-            
-            __fpurge(stdin);
-            getchar();
-            break;
-        case 5:
+       if(stricmp(name1,name2)==0)
+        {
+            printf("You have already voted.\n");
             exit(0);
-            break;
-        default:
-            printf("\n\t---It should never come here---\n");
-    }
-}
+        }
 
-int valid_operation(int operation)
-{
-    /* Check if the operation is a valid operation */
-    return ((ADD <= operation) && (EXIT >= operation)) ? VALID: INVALID;
+    }
+
+		fclose(fp2);
+		fp2 = fopen("voters.txt","a");
+		fprintf(fp2,"%s\n",name1);
+
+		fclose(fp2);
+
+		printf("**************\n");
+
+		system("cls");
+
+		heading();
+		printf("Rule Book:\n\n");
+		printf("1.You can vote only once.\n2.Enter names as per registered in college.\n3.You can add new candidates but those must be from 4th year.");
+		printf("\n4.Student from any branch can participate.\n5.Please be fair and impartial in voting.\n");
+		printf("\n\n\n\n\n\n\n\nEnter 1 to continue:");
+		scanf("%d",&no);
+		if(no==1)
+			{
+				system("cls");
+				goto go;
+			}
+
+
+		go :
+			system("cls");
+			fflush(stdin);
+			heading();
+			printf("\n\nWELCOME :  %s\n\n",name1);
+			printf("1.For voting\n2.Add candidate\n3.List of voters\n4.Live count\n5.List of Candidates\n6.Exit\n");
+			printf("\n\n\nEnter Response: ");
+			scanf("%d",&ch);
+			system("cls");
+			fp1=fopen("candidates.txt","r");
+			for(c=getc(fp1);c!=EOF;c=getc(fp1))//for finding no of candidates
+				if(c == '\n')
+					n = n + 1;
+            fclose(fp1);
+
+		if(ch==1)
+		{
+			system("cls");
+			heading();
+			printf("\n LIST OF CONTESTING CANDIDATES:\n\n");
+			fp1 = fopen("candidates.txt","r");
+			for(i=0;i<n;i++)
+			{
+				if(fgets(cand,20,fp1)>0)
+                {   printf("%d.%s",m,cand);
+					m=m+1;
+                }
+			}
+			fclose(fp1);
+			m=1;
+			fp3 = fopen("number.txt","r");
+
+			for(i=0;i<n;i++)
+			{
+				fscanf(fp3,"%d",&a[i]);
+			}
+			printf("\n\nEnter Your Response:");
+			scanf("%d",&res);
+			i = res-1;
+			a[i] = a[i] + 1;
+			fclose(fp3);
+
+			fp3 = fopen("number.txt","w");
+			for(i=0;i<n;i++)
+				{
+				fprintf(fp3,"%d\n",a[i]);
+				}
+			fclose(fp3);
+			printf("\nYour response has been submitted succesfully\n");
+
+            heading();
+            m=1;
+            fp3 = fopen("number.txt","r");
+            fp1 = fopen("candidates.txt","r");
+           printf("\n\nS.no\t\tNo of votes\t\tCandidate\n");
+		printf("__________________________________________________\n");
+		for(;;)
+		{
+			if(fgets(cand,20,fp1)>0)
+			{
+				if(fscanf(fp3,"%d",&num)>0)
+				{
+					printf("%d.\t\t %d \t\t\t%s",m,num,cand );
+					m=m+1;
+				}
+				else break;
+			}
+			else break;
+		}
+            m=1;
+            fclose(fp1);
+            fclose(fp3);
+
+		}
+
+	else if(ch==2)
+	{
+		system("cls");
+		heading();
+        fflush(stdin);
+		printf("Enter the name of new Candidate:\n");
+        gets(cand);
+		fp1 = fopen("candidates.txt","a");
+		fprintf(fp1,"%s\n",cand);
+		fclose(fp1);
+		printf("Name is registered succesfully\n");
+		goto go;
+
+	}
+
+	else if(ch==3)
+	{
+		system("cls");
+		heading();
+
+		fp2=fopen("voters.txt","r");
+		m=1;
+		for(i=0;i<1000;i++)
+		{
+
+			if(fgets(voter,20,fp2)>0)
+			{
+				printf("%d.%s",m,voter);
+				m=m+1;
+			}
+		}
+		m=1;
+		fclose(fp2);
+		printf("\n\nEnter 1 to return back to menu:");
+		scanf("%d",&no);
+		if(no==1)
+			goto go;
+	}
+
+	else if(ch==4)
+	{
+		system("cls");
+		fflush(stdin);
+		heading();
+		fp3 = fopen("number.txt","r");
+		fp1 = fopen("candidates.txt","r");
+		m=1;
+		printf("\n\nS.no\t\tNo of votes\t\tCandidate\n");
+		printf("__________________________________________________\n");
+		for(;;)
+		{
+			if(fgets(cand,20,fp1)>0)
+			{
+				if(fscanf(fp3,"%d",&num)>0)
+				{
+					printf("%d.\t\t %d \t\t\t%s",m,num,cand );
+					m=m+1;
+				}
+				else break;
+			}
+			else break;
+		}
+		m=1;
+		fclose(fp1);
+		fclose(fp3);
+		printf("\n\nEnter 1 to return back to menu:");
+		scanf("%d",&no);
+		if(no==1)
+			goto go;
+	}
+	else if(ch==5)
+	{
+		system("cls");
+			heading();
+
+			printf("\n LIST OF CONTESTING CANDIDATES:\n\n");
+			fp1 = fopen("candidates.txt","r");
+			for(i=0;i<n;i++)
+			{
+				if(fgets(cand,20,fp1)>0)
+                {   printf("%d.%s",m,cand);
+					m=m+1;
+                }
+			}
+		m=1;
+		printf("\n\nEnter 1 to return back to menu:");
+		scanf("%d",&no);
+		if(no==1)
+			goto go;
+	}
+	else
+        heading();
+		printf("\n\n\t\t\t   *******THANK YOU*******\n");
+		exit(0);
 }
