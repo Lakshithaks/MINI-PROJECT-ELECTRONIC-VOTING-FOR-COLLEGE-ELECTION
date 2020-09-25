@@ -52,7 +52,7 @@ int main()
 	fp2 = fopen("voters.txt","r");
 	while(fscanf(fp2,"%s",name2)!= EOF)
     {
-       if(stricmp(name1,name2)==0)
+       if(strcasecmp(name1,name2)==0)
         {
             printf("You have already voted.\n");
             exit(0);
