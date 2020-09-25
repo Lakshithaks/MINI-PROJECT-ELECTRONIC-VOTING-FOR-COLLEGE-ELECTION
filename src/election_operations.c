@@ -1,24 +1,28 @@
 #include <election_operations.h>
 
-int add(int operand1, int operand2)
+int forvote(int operand1, int operand2)
 {
     return operand1 + operand2;
 }
 
-int subtract(int operand1, int operand2)
+int newcandidate(int operand1, int operand2)
 {
-    return operand1 - operand2;
+    return operand1 + operand2;
 }
 
-int multiply(int operand1, int operand2)
+int listofvoters(int operand1, int operand2)
 {
-    return operand1 * operand2;
+    return operand1 + operand2;
 }
 
-int divide(int operand1, int operand2)
+int livecount(int operand1, int operand2)
 {
-    if(0 == operand2)
-        return 0;
-    else
-        return operand1 / operand2;
+   
+  return operand1 + operand2;
+}
+
+int listofcandidates(int operand1, int operand2)
+{
+   
+  return operand1 + operand2;
 }
