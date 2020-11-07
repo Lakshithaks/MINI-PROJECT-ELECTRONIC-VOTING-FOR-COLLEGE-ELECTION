@@ -1,6 +1,7 @@
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
 
+
 /* Modify these two lines according to the project */
 #include <election_operations.h>
 #define PROJECT_NAME    "Election"
