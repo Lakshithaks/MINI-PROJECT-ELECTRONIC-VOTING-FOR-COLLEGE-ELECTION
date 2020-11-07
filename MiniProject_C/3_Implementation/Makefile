@@ -1,7 +1,6 @@
 # Name of the project
 PROJECT_NAME = Election
 
-
 # Output directory
 BUILD = build
 
