@@ -1,7 +1,7 @@
 name: cppcheck-action
 on: [push]
 
-jobs:
+jobs: 
   build:
     name: cppcheck
     runs-on: ubuntu-latest
