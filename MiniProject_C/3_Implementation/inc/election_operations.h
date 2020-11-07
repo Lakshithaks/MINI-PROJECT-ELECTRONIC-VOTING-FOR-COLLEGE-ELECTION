@@ -5,7 +5,6 @@
 #ifndef __ELECTION_OPERATIONS_H__
 #define __ELECTION_OPERATIONS_H__
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
